@@ -13,7 +13,6 @@ function saluda() {
 
     const text2 = document.getElementById("text2");
     document.getElementById("text2").innerHTML = inputValue;
-    
 }
 
 function passsarAASCII() {
