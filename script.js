@@ -9,12 +9,11 @@ function saluda() {
 
     const input = document.getElementById("name");
     const inputValue = input.value;
+    
     console.log(inputValue);
-
     const text2 = document.getElementById("text2");
     document.getElementById("text2").innerHTML = inputValue;
-}
-
-function passsarAASCII() {
-
-}
+    const input2 = document.getElementById("name").value;
+    const asciiCode = input2.charCodeAt(0);
+    document.getElementById("output").textContent = `ASCII code: ${asciiCode}`;
+  }
