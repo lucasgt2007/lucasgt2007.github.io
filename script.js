@@ -17,3 +17,10 @@ function saluda() {
     const asciiCode = input2.charCodeAt(0);
     document.getElementById("output").textContent = `ASCII code: ${asciiCode}`;
   }
+
+const p = document.getElementById('p'); //p
+
+function findN(){
+  const pValue = document.getElementById('p');
+  console.log("holaaaa----", p);
+}
