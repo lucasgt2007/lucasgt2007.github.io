@@ -61,6 +61,20 @@ function findN() {
     console.log("nnn", p, q, n)
     
     document.getElementById('n').value = n;
+  } else {
+    // error
   }
   //
 }
+
+function textToASCII(text) {
+  const x = text.charCodeAt(0);
+  console.log(x);
+
+  const llargadaText = text.length;
+  console.log("llargada--->", llargadaText);
+}
+
+textToASCII("Hola");
+
+textToASCII("Marc i Lucas");
