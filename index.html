@@ -12,15 +12,29 @@
         <form class="form">
             <h2 class="form_title"> Encriptació i desencriptació </h2>
             <p class= "form_paragraph"> Eina per encriptar i desencriptar missatges  <a href="#" class="form_link"></a></p>
-             
+          
             <div class= "form_container">
+            <div class="form_group">
+                <input type="text" id="textperencriptar" class="form_input" value="H">
+                <label for="textperencriptar" class="form_label"> Text per encriptar </label>
+                <span class="form_line"></span>
+                
+                <input type="button"  value="textToASCII" onclick="catchchar()">
+            </div>  
+
                 <div class="form_group">
-                    <input type="text" id="p" class="form_input" placeholder=" ">
+                    <input type="text" id="textenascii" disabled class="form_input" placeholder=" ">
+                    <label for="textenascii" class="form_label"> Text en ASCII </label>
+                    <span class="form_line"></span>
+
+                <div class= "form_container">
+                <div class="form_group">
+                    <input type="text" id="p" class="form_input" value="11">
                     <label for="name" class="form_label"> P: </label>
                     <span class="form_line"></span>
                 </div>
             <div class="form_group">
-                    <input type="text" id="q" class="form_input" placeholder=" ">
+                    <input type="text" id="q" class="form_input" value="13">
                     <label for="user" class="form_label"> Q: </label>
                     <span class="form_line"></span>
         
@@ -28,20 +42,60 @@
                 </div>
                 <div class="form_group">
                     <input type="text" id="n" disabled class="form_input" placeholder=" ">
-                    <label for="n" class="form_label"> N: </label>
+                    <label for="n" class="form_label"> N </label>
                     <span class="form_line"></span> 
                 </div>
                 
-            <input type="button" value="Encriptar" onclick="findN();"    >
-             </div>      
 
+
+            </div>
+
+            <div class= "form_container">
              <div class="form_group">
-                    <input type="text" id="M" class="form_input" placeholder=" ">
-                    <label for="user" class="form_label"> missatge: </label>
-                    <span class="form_line"></span>
-        
+                <input type="text" disabled id="Phi" class="form_input" placeholder=" ">
+                <label for="Phi" class="form_label"> Phi </label>
+                <span class="form_line"></span>
+                     
+                   </div>    
+                </div>          
+            
+                <div class= "form_container">
+                    <div class="form_group">
+                       <input type="text" disabled id="e" class="form_input" placeholder=" ">
+                       <label for="E" class="form_label"> E </label>
+                       <span class="form_line"></span>
+                          </div>    
+                   
+       
+       
+                       </div>             
+                
+                <div class= "form_container">
+                        <div class="form_group">
+                           <input type="text" disabled id="d" class="form_input" placeholder=" ">
+                           <label for="D" class="form_label"> D </label>
+                           <span class="form_line"></span>
+                              </div>    
+                       
+           
+           
+                           </div>        
+                </div>
+            <input type="button" value="Encriptar" onclick="findN();"    >
+             </div>   
 
                 </div>
+            <input type="button" value="CalculaPhi" onclick="calculaPhi();"   >
+             </div>  
+
+            </div>
+            <input type="button" value="generarE" onclick="generarE();"   >
+             </div> 
+            
+            </div>
+             <input type="button" value="generarD" onclick="generarD();">
+            </div>
+            
         </form>
 
         </body>
