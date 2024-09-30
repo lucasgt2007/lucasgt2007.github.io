@@ -80,8 +80,31 @@
            
            
                            </div>        
-                </div>
-            <input type="button" value="Encriptar" onclick="findN();"    >
+                </div>                
+                <div class= "form_container">
+                    <div class="form_group">
+                       <input type="text" disabled id="c" class="form_input" placeholder=" ">
+                       <label for="c" class="form_label"> Text xifrat </label>
+                       <span class="form_line"></span>
+                          </div>    
+                
+                <div class= "form_container">
+                    <div class="form_group">
+                        <input type="text" disabled id="textdesxifratenascii" class="form_input" placeholder=" ">
+                        <label for="c" class="form_label"> Text desxifrat en ASCII </label>
+                        <span class="form_line"></span>
+                            </div>      
+                
+                <div class= "form_container">
+                    <div class="form_group">
+                    <input type="text" disabled id="textdesencriptat" class="form_input" placeholder=" ">
+                    <label for="c" class="form_label"> Text desencriptat </label>
+                    <span class="form_line"></span>
+                            </div>     
+       
+       
+            </div>  
+            <input type="button" value="Generar N" onclick="findN();"    >
              </div>   
 
                 </div>
@@ -96,6 +119,17 @@
              <input type="button" value="generarD" onclick="generarD();">
             </div>
 
+            <div>
+            <input type="button" value="Encriptar" onclick="generarC();">
+            </div>
+            
+            <div>
+                <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
+            </div>
+        
+            </div>
+                <input type="button" value="ASCII to text" onclick="MDesencriptat();">
+            </div>            
         </form>
 
         </body>

@@ -27,7 +27,7 @@ AsciiTotext (72);
 AsciiTotext (77);
 
 function calculaN (p,q){
-  return p*q;
+  return (p*q);
 }
 
 
@@ -62,9 +62,11 @@ console.log(test_prime(37));
 function findN() {
   const pa = document.getElementById('p').value;
   const qa = document.getElementById('q').value;
+  const m = document.getElementById ('textenascii').value;
 
   console.log("p primer-->", test_prime(p));
   console.log("q primer-->", test_prime(q));
+  console.log(m);
 
   // p primer i q primer
   if (test_prime(p) && test_prime(q)) {
@@ -108,7 +110,7 @@ function calculaPhi (number){
 
 
 function generarE() {
-  const phi = parseInt(document.getElementById('Phi').value);
+  const phi = document.getElementById('Phi').value;
   let e = phi;
   console.log(e,phi);
   console.log(gcd(e, phi));
@@ -123,9 +125,34 @@ function generarD() {
   var e = document.getElementById ('n').value;
   const phi = document.getElementById ('Phi').value;
   e = e%phi;
-    for (var x = 1; x < phi; x++) {
-        if ((e*x)%phi == 1) {
-          document.getElementById('d').value = x;
+    for (var d = 1; d < phi; d++) {
+        if ((e*d)%phi == 1) {
+          document.getElementById('d').value= d;
         }
     }
+}
+
+function generarC() {
+  const m = document.getElementById ('textenascii').value;
+  const e = document.getElementById('e').value;
+  const n = document.getElementById('n').value;
+  const c = (m**e)%n;
+  document.getElementById('c').value = c;
+  console.log(m);
+  console.log(n);
+  console.log(c);
+}
+
+function generarl() {
+  const d = document.getElementById('d').value;
+  const l = (c**d)%n;
+  document.getElementById('textdesxifratenascii').value = l;
+  console.log(l);
+}
+
+function MDesencriptat() {
+  document.getElementById('textdesxifratenascii').value = l;
+  var missatgedesencriptat = AsciiTotext(l);
+  console.log(missatgedesencriptat);
+  document.getElementById('textdesencriptat');
 }
