@@ -1,4 +1,13 @@
-
+var c = null;
+var d = null;
+var m = null;
+var l = null;
+var n = null;
+var e = null;
+var phi = null;
+var nobigintL = null;
+var missatgedesencriptat = null;
+var char = null;
 
 function textToASCII(text) {
   const ascii= text.charCodeAt();
@@ -17,11 +26,10 @@ function catchchar () {
 
 
 
-
 function AsciiTotext (ascii_code) {
-const char = String.fromCharCode (ascii_code); 
-console.log (char);
-return char;
+  char = String.fromCharCode (ascii_code); 
+  console.log (char);
+  return char;
 }
 AsciiTotext (72);
 AsciiTotext (77);
@@ -62,7 +70,7 @@ console.log(test_prime(37));
 function findN() {
   const pa = document.getElementById('p').value;
   const qa = document.getElementById('q').value;
-  const m = document.getElementById ('textenascii').value;
+  m = document.getElementById ('textenascii').value;
 
   console.log("p primer-->", test_prime(p));
   console.log("q primer-->", test_prime(q));
@@ -71,7 +79,7 @@ function findN() {
   // p primer i q primer
   if (test_prime(p) && test_prime(q)) {
     
-    const n = calculaN(pa,qa);
+    n = BigInt(calculaN(pa,qa));
     //console.log("nnn", p, q, n)
     
     document.getElementById('n').value = n;
@@ -85,7 +93,7 @@ function findN() {
 function calculaPhi (number){
   const pa = document.getElementById('p').value;
   const qa = document.getElementById('q').value;
-  const phi = (pa-1) * (qa-1);
+  phi = (pa-1) * (qa-1);
   document.getElementById('Phi').value = phi;
   return (calculaPhi);
 }
@@ -110,7 +118,7 @@ function calculaPhi (number){
 
 
 function generarE() {
-  const phi = document.getElementById('Phi').value;
+  //phi = document.getElementById('Phi').value;
   let e = phi;
   console.log(e,phi);
   console.log(gcd(e, phi));
@@ -123,7 +131,7 @@ function generarE() {
 
 function generarD() {
   var e = document.getElementById ('n').value;
-  const phi = document.getElementById ('Phi').value;
+  //phi = document.getElementById ('Phi').value;
   e = e%phi;
     for (var d = 1; d < phi; d++) {
         if ((e*d)%phi == 1) {
@@ -133,10 +141,10 @@ function generarD() {
 }
 
 function generarC() {
-  const m = document.getElementById ('textenascii').value;
-  const e = document.getElementById('e').value;
-  const n = document.getElementById('n').value;
-  const c = (m**e)%n;
+  m = BigInt(document.getElementById ('textenascii').value);
+  e = BigInt(document.getElementById('e').value);
+  n = BigInt(document.getElementById('n').value);
+  c = BigInt((m**e)%n);
   document.getElementById('c').value = c;
   console.log(m);
   console.log(n);
@@ -144,15 +152,19 @@ function generarC() {
 }
 
 function generarl() {
-  const d = document.getElementById('d').value;
-  const l = (c**d)%n;
+  n = BigInt(document.getElementById('n').value);
+  d = BigInt(document.getElementById('d').value);
+  console.log(c, d, n);
+  l = BigInt((c**d)%n);
   document.getElementById('textdesxifratenascii').value = l;
   console.log(l);
 }
 
 function MDesencriptat() {
-  document.getElementById('textdesxifratenascii').value = l;
-  var missatgedesencriptat = AsciiTotext(l);
-  console.log(missatgedesencriptat);
-  document.getElementById('textdesencriptat');
+  console.log('*******', l);
+  nobigintL = parseInt(l);
+  console.log(nobigintL);
+  missatgedesencriptat = AsciiTotext(nobigintL); // pàrseint 72n --> 72
+  document.getElementById('textdesencriptat').char = char;
 }
+AsciiTotext (73);
