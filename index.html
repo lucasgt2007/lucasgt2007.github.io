@@ -9,128 +9,106 @@
     <script src="script.js"></script>    
 </head>
 <body>          
-        <form class="form">
-            <h2 class="form_title"> Encriptació i desencriptació </h2>
-            <p class= "form_paragraph"> Eina per encriptar i desencriptar missatges  <a href="#" class="form_link"></a></p>
-          
-            <div class= "form_container">
+    <form class="form">
+        <h2 class="form_title"> Encriptació i desencriptació </h2>
+        <p class="form_paragraph"> Eina per encriptar i desencriptar missatges  <a href="#" class="form_link"></a></p>
+      
+        <div class="form_container">
             <div class="form_group">
-                <input type="text" id="textperencriptar" class="form_input" value="H">
+                <input type="text" id="textperencriptar" class="form_input" value="">
                 <label for="textperencriptar" class="form_label"> Text per encriptar </label>
                 <span class="form_line"></span>
                 
-                <input type="button"  value="textToASCII" onclick="catchchar()">
+                <input type="button" value="textToASCII" onclick="catchchar()">
             </div>  
 
-                <div class="form_group">
-                    <input type="text" id="textenascii" disabled class="form_input" placeholder=" ">
-                    <label for="textenascii" class="form_label"> Text en ASCII </label>
-                    <span class="form_line"></span>
+            <div class="form_group">
+                <input type="text" id="textenascii" disabled class="form_input" placeholder=" ">
+                <label for="textenascii" class="form_label"> Text en ASCII </label>
+                <span class="form_line"></span>
+            </div>
 
-                <div class= "form_container">
+            <div class="form_container">
                 <div class="form_group">
-                    <input type="text" id="p" class="form_input" value="11">
-                    <label for="name" class="form_label"> P: </label>
+                    <input type="text" id="p" class="form_input" value="89">
+                    <label for="p" class="form_label"> P: </label>
                     <span class="form_line"></span>
                 </div>
-            <div class="form_group">
-                    <input type="text" id="q" class="form_input" value="13">
-                    <label for="user" class="form_label"> Q: </label>
+                <div class="form_group">
+                    <input type="text" id="q" class="form_input" value="97">
+                    <label for="q" class="form_label"> Q: </label>
                     <span class="form_line"></span>
-        
-
                 </div>
                 <div class="form_group">
                     <input type="text" id="n" disabled class="form_input" placeholder=" ">
                     <label for="n" class="form_label"> N </label>
                     <span class="form_line"></span> 
                 </div>
-                
-
-
             </div>
 
-            <div class= "form_container">
-             <div class="form_group">
-                <input type="text" disabled id="Phi" class="form_input" placeholder=" ">
-                <label for="Phi" class="form_label"> Phi </label>
-                <span class="form_line"></span>
-                     
-                   </div>    
-                </div>          
-            
-                <div class= "form_container">
-                    <div class="form_group">
-                       <input type="text" disabled id="e" class="form_input" placeholder=" ">
-                       <label for="E" class="form_label"> E </label>
-                       <span class="form_line"></span>
-                          </div>    
-                   
-       
-       
-                       </div>             
-                
-                <div class= "form_container">
-                        <div class="form_group">
-                           <input type="text" disabled id="d" class="form_input" placeholder=" ">
-                           <label for="D" class="form_label"> D </label>
-                           <span class="form_line"></span>
-                              </div>    
-                       
-           
-           
-                           </div>        
-                </div>                
-                <div class= "form_container">
-                    <div class="form_group">
-                       <input type="text" disabled id="c" class="form_input" placeholder=" ">
-                       <label for="c" class="form_label"> Text xifrat </label>
-                       <span class="form_line"></span>
-                          </div>    
-                
-                <div class= "form_container">
-                    <div class="form_group">
-                        <input type="text" disabled id="textdesxifratenascii" class="form_input" placeholder=" ">
-                        <label for="c" class="form_label"> Text desxifrat en ASCII </label>
-                        <span class="form_line"></span>
-                            </div>      
-                
-                <div class= "form_container">
-                    <div class="form_group">
-                    <input type="text" disabled id="textdesencriptat" class="form_input" placeholder=" ">
-                    <label for="c" class="form_label"> Text desencriptat </label>
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="Phi" class="form_input" placeholder=" ">
+                    <label for="Phi" class="form_label"> Phi </label>
                     <span class="form_line"></span>
-                            </div>     
-       
-       
+                </div>    
+            </div>          
+            
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="e" class="form_input" placeholder=" ">
+                    <label for="e" class="form_label"> E </label>
+                    <span class="form_line"></span>
+                </div>    
+            </div>             
+                
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="d" class="form_input" placeholder=" ">
+                    <label for="d" class="form_label"> D </label>
+                    <span class="form_line"></span>
+                </div>    
+            </div>        
+
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="c" class="form_input" placeholder=" ">
+                    <label for="c" class="form_label"> Text xifrat </label>
+                    <span class="form_line"></span>
+                </div>    
+            </div>
+
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="textdesxifratenascii" class="form_input" placeholder=" ">
+                    <label for="textdesxifratenascii" class="form_label"> Text desxifrat en ASCII </label>
+                    <span class="form_line"></span>
+                </div>      
+            </div>
+
+            <div class="form_container">
+                <div class="form_group">
+                    <input type="text" disabled id="textdesencriptat" class="form_input" placeholder=" ">
+                    <label for="textdesencriptat" class="form_label"> Text desencriptat </label>
+                    <span class="form_line"></span>
+                </div>     
             </div>  
-            <input type="button" value="Generar N" onclick="findN();"    >
-             </div>   
+        </div>
 
-                </div>
-            <input type="button" value="CalculaPhi" onclick="calculaPhi();"   >
-             </div>  
+        <!-- Buttons for actions -->
+        <input type="button" value="Generar N" onclick="findN();">
 
-            </div>
-            <input type="button" value="generarE" onclick="generarE();"   >
-             </div> 
-            
-            </div>
-             <input type="button" value="generarD" onclick="generarD();">
-            </div>
-
-            <div>
-            <input type="button" value="Encriptar" onclick="generarC();">
-            </div>
-            
-            <div>
-                <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
-            </div>
+        <input type="button" value="CalculaPhi" onclick="calculaPhi();">
         
-            </div>
-                <input type="button" value="ASCII to text" onclick="MDesencriptat();">
-            </div>    
-        </form>
-
-        </body>
+        <input type="button" value="Generar E" onclick="generarE();">
+        
+        <input type="button" value="Generar D" onclick="generarD();">
+        
+        <input type="button" value="Encriptar" onclick="generarC();">
+        
+        <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
+        
+        <input type="button" value="ASCII to text" onclick="MDesencriptat();">
+    </form>
+</body>
 </html>
