@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Lucas</title> 
     <link rel="stylesheet" href="estilos.css"> 
-    <script src="script.js"></script>    
+    <script src="script.js"></script>   
+    <link rel="stylesheet" href="estilos.css">
+ 
 </head>
 <body>          
     <form class="form">
@@ -15,12 +17,12 @@
       
         <div class="form_container">
             <div class="form_group">
-                <input type="text" id="textperencriptar" class="form_input" value="">
+                <input type="text" id="textperencriptar" class="form_input" value="">   
                 <label for="textperencriptar" class="form_label"> Text per encriptar </label>
                 <span class="form_line"></span>
-                
-                <input type="button" value="textToASCII" onclick="catchchar()">
             </div>  
+
+            <input type="button" value="textToASCII" onclick="catchchar();" class=>
 
             <div class="form_group">
                 <input type="text" id="textenascii" disabled class="form_input" placeholder=" ">
@@ -30,53 +32,63 @@
 
             <div class="form_container">
                 <div class="form_group">
-                    <input type="text" id="p" class="form_input" value="89">
+                    <input type="text" id="p" class="form_input" value="89" required>
                     <label for="p" class="form_label"> P: </label>
                     <span class="form_line"></span>
                 </div>
+
                 <div class="form_group">
-                    <input type="text" id="q" class="form_input" value="97">
+                    <input type="text" id="q" class="form_input" value="97" required>
                     <label for="q" class="form_label"> Q: </label>
                     <span class="form_line"></span>
                 </div>
+
+                <input type="button" value="Generar N" onclick="findN();">
+
                 <div class="form_group">
                     <input type="text" id="n" disabled class="form_input" placeholder=" ">
                     <label for="n" class="form_label"> N </label>
                     <span class="form_line"></span> 
                 </div>
             </div>
-
             <div class="form_container">
                 <div class="form_group">
                     <input type="text" disabled id="Phi" class="form_input" placeholder=" ">
                     <label for="Phi" class="form_label"> Phi </label>
                     <span class="form_line"></span>
+                    <input type="button" value="CalculaPhi" onclick="calculaPhi();">
                 </div>    
+
             </div>          
-            
             <div class="form_container">
                 <div class="form_group">
                     <input type="text" disabled id="e" class="form_input" placeholder=" ">
                     <label for="e" class="form_label"> E </label>
                     <span class="form_line"></span>
+                    <input type="button" value="Generar E" onclick="generarE();">
                 </div>    
             </div>             
-                
+
+
             <div class="form_container">
                 <div class="form_group">
                     <input type="text" disabled id="d" class="form_input" placeholder=" ">
                     <label for="d" class="form_label"> D </label>
                     <span class="form_line"></span>
+                    <input type="button" value="Generar D" onclick="generarD();">     
                 </div>    
-            </div>        
 
-            <div class="form_container">
+                    
+            <input type="button" value="Encriptar" onclick="generarC();">
+            </div class="form_container">
                 <div class="form_group">
                     <input type="text" disabled id="c" class="form_input" placeholder=" ">
                     <label for="c" class="form_label"> Text xifrat </label>
                     <span class="form_line"></span>
                 </div>    
             </div>
+
+            <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
 
             <div class="form_container">
                 <div class="form_group">
@@ -86,6 +98,9 @@
                 </div>      
             </div>
 
+
+            <input type="button" value="ASCII to text" onclick="MDesencriptat();">
+
             <div class="form_container">
                 <div class="form_group">
                     <input type="text" disabled id="textdesencriptat" class="form_input" placeholder=" ">
@@ -94,21 +109,7 @@
                 </div>     
             </div>  
         </div>
-
-        <!-- Buttons for actions -->
-        <input type="button" value="Generar N" onclick="findN();">
-
-        <input type="button" value="CalculaPhi" onclick="calculaPhi();">
         
-        <input type="button" value="Generar E" onclick="generarE();">
-        
-        <input type="button" value="Generar D" onclick="generarD();">
-        
-        <input type="button" value="Encriptar" onclick="generarC();">
-        
-        <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
-        
-        <input type="button" value="ASCII to text" onclick="MDesencriptat();">
     </form>
 </body>
 </html>

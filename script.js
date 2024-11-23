@@ -8,13 +8,14 @@ var phi = null;
 var nobigintL = null;
 var missatgedesencriptat = null;
 var char = null;
+var text = null;
 
 
 function textToASCII(text) {
   let asciiValues = []; // Crea un "archivo" para guardar todos los valoes de los caracteres en ASCII.
-  for (let i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++) { 
     const ascii = text.charCodeAt(i); 
-    asciiValues += ascii + ","; // Agregamos cada vaor de la letra en ASCII seguido de coma para formar la cadena de ASCII value.
+    asciiValues += ascii + ","; // Agregamos cada valor de la letra en ASCII seguido de coma para formar la cadena de ASCII value.
   }
  
    asciiValues = asciiValues.slice(0, -1); // función para quitar la última coma porque hace un corte en la función desde la primera (0) hasta la  penúltima (-1)
@@ -22,11 +23,18 @@ function textToASCII(text) {
 }
 
 
-function catchchar() {
+function catchchar () {
   const character = document.getElementById('textperencriptar').value;
-  const characterASCII = textToASCII(character);
-  document.getElementById("textenascii").value = characterASCII; // Display the ASCII values
+  const characterASCII = textToASCII (character);
+  //console.log(characterASCII);
+  document.getElementById("textenascii").value = characterASCII;
+if (character === ""){
+  alert ("Inserta text per encriptar");
 }
+}
+
+
+
 
 
 function AsciiTotext(ascii_code) {
@@ -41,19 +49,12 @@ function calculaN(p, q) {
 }
 
 
-function test_prime(n) {
-  if (n === 1) {
-    return true;
-  } else if (n === 2) {
-    return true;
-  } else {
-    for (var x = 2; x < n; x++) {
-      if (n % x === 0) {
-        return false;
-      }
-    }
-    return true;  
+function isPrime(n) {
+  if (n <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
   }
+  return true;
 }
 
 
@@ -61,20 +62,25 @@ function findN() {
   const pa = document.getElementById('p').value;
   const qa = document.getElementById('q').value;
   m = document.getElementById('textenascii').value;
-
-
-  console.log("p primer-->", test_prime(pa));
-  console.log("q primer-->", test_prime(qa));
+  console.log("p primer-->", isPrime(pa));
+  console.log("q primer-->", isPrime(qa));
   console.log(m);
 
 
-  if (test_prime(pa) && test_prime(qa)) {
-    n = BigInt(calculaN(pa, qa));
-    document.getElementById('n').value = n;
+if (isPrime(pa) && isPrime(qa)){
+  if (pa * qa <= 255){
+  alert ("P * Q ha de ser >255");
+  document.getElementById('n').value = null;
   } else {
-    // error handling if needed
+    n = BigInt(calculaN(pa,qa));
+    document.getElementById('n').value = n; 
   }
+
+} else {
+  alert ("P i Q han de ser primers");
 }
+}
+
 
 
 function calculaPhi(number) {
@@ -175,7 +181,3 @@ function MDesencriptat() {
 
   document.getElementById('textdesencriptat').value = decryptedText; // Display decrypted text
 }
-
-
-
-
