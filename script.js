@@ -111,9 +111,9 @@ function gcd(a, b) {
 
 
 function generarE() {
-  let e = phi;
+  let e = 2;
   while (gcd(e, phi) != 1) {
-    e -= 1;
+    e += 1;
   }  
   document.getElementById('e').value = e;
 }
