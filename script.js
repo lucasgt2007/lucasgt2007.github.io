@@ -61,26 +61,28 @@ function isPrime(n) {
 function findN() {
   const pa = document.getElementById('p').value;
   const qa = document.getElementById('q').value;
+  const character = document.getElementById('textperencriptar').value;
   m = document.getElementById('textenascii').value;
   console.log("p primer-->", isPrime(pa));
   console.log("q primer-->", isPrime(qa));
   console.log(m);
 
-
-if (isPrime(pa) && isPrime(qa)){
-  if (pa * qa <= 255){
-  alert ("P * Q ha de ser >255");
-  document.getElementById('n').value = null;
-  } else {
+if(character === ""){
+  alert ("Inserta text per encriptar");
+} else {
+  if (isPrime(pa) && isPrime(qa)){
+    if (pa * qa <= 255){
+    alert ("P * Q ha de ser >255");
+    document.getElementById('n').value = null;
+    } else {
     n = BigInt(calculaN(pa,qa));
     document.getElementById('n').value = n; 
-  }
-
+    }
 } else {
   alert ("P i Q han de ser primers");
 }
 }
-
+}
 
 
 function calculaPhi(number) {
