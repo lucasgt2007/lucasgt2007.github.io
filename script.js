@@ -34,9 +34,6 @@ if (character === ""){
 }
 
 
-
-
-
 function AsciiTotext(ascii_code) {
   char = String.fromCharCode(ascii_code); 
   console.log(char);
