@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Lucas</title> 
+    <title>TR Lucas</title> 
     <link rel="stylesheet" href="estilos.css"> 
     <script src="script.js"></script>   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="estilos.css">
- 
+
+    <!-- MathJax per renderitzar LaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>          
     <form class="form">
@@ -19,8 +24,9 @@
             <div class="form_group">
                 <input type="text" id="textperencriptar" class="form_input" value="">   
                 <label for="textperencriptar" class="form_label"> Text per encriptar </label>
+                <div class="invalid-tooltip">El text no pot ser buit</div>
                 <span class="form_line"></span>
-            </div>  
+            </div>
 
             <input type="button" value="textToASCII" onclick="catchchar();" class=>
 
@@ -31,27 +37,36 @@
             </div>
 
             <div class="form_container">
-                <div class="form_group">
+                <div class="form_group position-relative">
                     <input type="text" id="p" class="form_input" value="89" required>
-                    <label for="p" class="form_label"> P: </label>
-                    <span class="form_line"></span>
+                    <label for="p" class="form_label">P:</label>
+                    <div class="invalid-tooltip">El valor ha de ser un nombre primer.</div>
                 </div>
-
-                <div class="form_group">
+                
+                <div class="form_group position-relative">
                     <input type="text" id="q" class="form_input" value="97" required>
-                    <label for="q" class="form_label"> Q: </label>
-                    <span class="form_line"></span>
+                    <label for="q" class="form_label">Q:</label>
+                    <div class="invalid-tooltip">El valor ha de ser un nombre primer.</div>
                 </div>
-
-                <input type="button" value="Generar N" onclick="findN();">
+                
+                <input type="button" value="Generar N" onclick="findN();" class="btn btn-primary mt-3">
+                <!-- Fórmula per N -->
+                <div class="formula">
+                    \(n = p \cdot q\)
+                </div>
 
                 <div class="form_group">
                     <input type="text" id="n" disabled class="form_input" placeholder=" ">
-                    <label for="n" class="form_label"> N </label>
-                    <span class="form_line"></span> 
+                    <label for="n" class="form_label">N</label>
+                    <div class="invalid-tooltip">P * Q ha de ser >255</div>
                 </div>
             </div>
+
             <div class="form_container">
+                <!-- Fórmula per Phi -->
+                <div class="formula">
+                    \(\phi(n) = (p-1) \cdot (q-1)\)
+                </div>
                 <div class="form_group">
                     <input type="text" disabled id="Phi" class="form_input" placeholder=" ">
                     <label for="Phi" class="form_label"> Phi </label>
@@ -61,9 +76,13 @@
 
             </div>          
             <div class="form_container">
+                <!-- Fórmula per E -->
+                <div class="formula">
+                    <div>\(1 < e < \phi(n)\)</div><div>\(\text{mcd}(e, \phi(n)) = 1\)</div>
+                </div>
                 <div class="form_group">
                     <input type="text" disabled id="e" class="form_input" placeholder=" ">
-                    <label for="e" class="form_label"> E </label>
+                    <label for="e" class="form_label"> e </label>
                     <span class="form_line"></span>
                     <input type="button" value="Generar E" onclick="generarE();">
                 </div>    
@@ -71,6 +90,10 @@
 
 
             <div class="form_container">
+                <!-- Fórmula per D -->
+                <div class="formula">
+                    \(d \equiv e^{-1} \mod (\phi(n))\)
+                </div>
                 <div class="form_group">
                     <input type="text" disabled id="d" class="form_input" placeholder=" ">
                     <label for="d" class="form_label"> D </label>
@@ -78,17 +101,32 @@
                     <input type="button" value="Generar D" onclick="generarD();">     
                 </div>    
 
-                    
-            <input type="button" value="Encriptar" onclick="generarC();">
+                <div id="keys" style="visibility: hidden">
+                    Clau pública: (<span id="clau_publica_n"></span>, <span id="clau_publica_e"></span>)
+                    <br>
+                    Clau privada: (<span id="clau_privada_n"></span>, <span id="clau_privada_d"></span>)
+                </div>
+
+                <input type="button" value="Encriptar" onclick="generarC();">
+                <!-- Fórmula per al xifrat -->
+                <div class="formula">
+                    \(c = m^e \mod(n)\)
+                </div>
+
             </div class="form_container">
-                <div class="form_group">
-                    <input type="text" disabled id="c" class="form_input" placeholder=" ">
-                    <label for="c" class="form_label"> Text xifrat </label>
-                    <span class="form_line"></span>
-                </div>    
+                <div class="form_group input-group">
+                    <span class="input-group-text bg-danger text-white" style="border: 1px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))">
+                        <i class="bi bi-lock-fill"></i> <!-- Icona de cadenat tancat -->
+                    </span>
+                    <input type="text" disabled id="c" class="form_input form-control bg-light text-primary" placeholder="Text xifrat" style="border: 1px solid rgba(var(--bs-danger-rgb),var(--bs-bg-opacity)); background: rgba(var(--bs-danger-rgb),0.1)!important">
+                </div>
             </div>
 
             <input type="button" value="Desencriptar a ASCII" onclick="generarl();">
+            <!-- Fórmula per al desxifrat -->
+            <div class="formula">
+                \(m = c^d \mod (n)\)
+            </div>
 
             <div class="form_container">
                 <div class="form_group">
@@ -102,11 +140,12 @@
             <input type="button" value="ASCII to text" onclick="MDesencriptat();">
 
             <div class="form_container">
-                <div class="form_group">
-                    <input type="text" disabled id="textdesencriptat" class="form_input" placeholder=" ">
-                    <label for="textdesencriptat" class="form_label"> Text desencriptat </label>
-                    <span class="form_line"></span>
-                </div>     
+                <div class="form_group input-group">
+                    <span class="input-group-text bg-success text-white" style="border: 1px solid rgba(var(--bs-success-rgb),var(--bs-bg-opacity));">
+                        <i class="bi bi-unlock-fill"></i> <!-- Icona de cadenat obert -->
+                    </span>
+                    <input type="text" disabled id="textdesencriptat" class="form_input form-control bg-light text-success" placeholder="Text desencriptat" style="border: 1px solid rgba(var(--bs-success-rgb),var(--bs-bg-opacity)); background: rgba(var(--bs-success-rgb),0.1)!important">
+                </div>
             </div>  
         </div>
         

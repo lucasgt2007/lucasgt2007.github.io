@@ -164,5 +164,11 @@ button:active, input[type="button"]:active {
     }
 }
 
+.is-invalid {
+    border-color: var(--bs-danger);
+}
 
-
+.formula {
+    color: #555555; /* Un gris fort */
+    font-size: 1rem;
+}
