@@ -1,3 +1,4 @@
+/* Variables GLOBALS */
 var c = null;
 var d = null;
 var m = null;
@@ -24,13 +25,17 @@ function textToASCII(text) {
 
 
 function catchchar () {
-  const character = document.getElementById('textperencriptar').value;
-  const characterASCII = textToASCII (character);
+  const mInput = document.getElementById('textperencriptar');
+  const character = mInput.value;
+  const characterASCII = textToASCII(character);
   //console.log(characterASCII);
   document.getElementById("textenascii").value = characterASCII;
-if (character === ""){
-  alert ("Inserta text per encriptar");
-}
+  if (character === ""){
+    //alert ("Inserta text per encriptar");
+    mInput.classList.add("is-invalid");
+  } else {
+    mInput.classList.remove("is-invalid");
+  }
 }
 
 
@@ -56,29 +61,50 @@ function isPrime(n) {
 
 
 function findN() {
-  const pa = document.getElementById('p').value;
-  const qa = document.getElementById('q').value;
+  const pInput = document.getElementById("p");
+  const qInput = document.getElementById("q");
+  const nInput = document.getElementById("n");
+
+  const pa = pInput.value;
+  const qa = qInput.value;
   const character = document.getElementById('textperencriptar').value;
   m = document.getElementById('textenascii').value;
   console.log("p primer-->", isPrime(pa));
   console.log("q primer-->", isPrime(qa));
   console.log(m);
 
-if(character === ""){
-  alert ("Inserta text per encriptar");
-} else {
-  if (isPrime(pa) && isPrime(qa)){
-    if (pa * qa <= 255){
-    alert ("P * Q ha de ser >255");
-    document.getElementById('n').value = null;
+  if (character === ""){
+    alert ("Inserta text per encriptar");
+  } else {
+    let valid = true;
+
+    if (!isPrime(pa)) {
+        pInput.classList.add("is-invalid");
+        valid = false;
     } else {
-    n = BigInt(calculaN(pa,qa));
-    document.getElementById('n').value = n; 
+        pInput.classList.remove("is-invalid");
     }
-} else {
-  alert ("P i Q han de ser primers");
-}
-}
+
+    if (!isPrime(qa)) {
+        qInput.classList.add("is-invalid");
+        valid = false;
+    } else {
+        qInput.classList.remove("is-invalid");
+    }
+
+    // Si tot és vàlid, es calcula N
+    if (valid) {
+      if (pa * qa <= 255){
+        //alert ("P * Q ha de ser >255");
+        document.getElementById('n').value = null;
+        nInput.classList.add("is-invalid");
+      } else {
+        nInput.classList.remove("is-invalid");
+        n = BigInt(calculaN(pa,qa));
+        document.getElementById('n').value = n; 
+      }
+    }
+  }
 }
 
 
@@ -117,13 +143,23 @@ function generarE() {
   document.getElementById('e').value = e;
 }
 
+function mostrarClaus() {
+  document.getElementById('keys').style.visibility = 'visible';
+
+  document.getElementById('clau_publica_n').innerHTML = "n = " + n;
+  document.getElementById('clau_publica_e').innerHTML = "e = " + e;
+  document.getElementById('clau_privada_n').innerHTML = "n = " + n;
+  document.getElementById('clau_privada_d').innerHTML = "d = " + d;
+}
 
 function generarD() {
-  var e = document.getElementById('e').value;
+  e = document.getElementById('e').value;
   e = e % phi;
-  for (var d = 1; d < phi; d++) {
+  for (d = 1; d < phi; d++) {
     if ((e * d) % phi == 1) {
       document.getElementById('d').value = d;
+
+      mostrarClaus();
     }
   }
 }
@@ -136,15 +172,19 @@ function generarC() {
 
 
   let encryptedValues = ""; // Initialize a string to collect encrypted values
+  /* let encryptedText = ""; // Initialize a string to collect encrypted values */
   for (let i = 0; i < m.length; i++) {
     const ascii = m[i]; // Use the value directly as const ascii
     c = BigInt((BigInt(ascii) ** e) % n); // Encrypt each ASCII value
     encryptedValues += c + ","; // Append encrypted value followed by a comma
+
+    /* encryptedText += String.fromCharCode(Number(c)%256); */
   }
 
 
   encryptedValues = encryptedValues.slice(0, -1); // Remove the trailing comma
   document.getElementById('c').value = encryptedValues; // Display encrypted values
+  /* document.getElementById('ctext').value = encryptedText; // Display encrypted values */
 }
 
 

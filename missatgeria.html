@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador d'aplicació de missatgeria amb xifrat d'extrem a extrem</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="script.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #e5ddd5;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .column {
+            flex: 1;
+            max-width: 32%;
+            min-width: 300px;
+            padding: 1rem;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .column:last-child {
+            border-right: none;
+        }
+        .bubble {
+            background: #dcf8c6;
+            padding: 0.8rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+        }
+        .bubble.sender {
+            align-self: flex-end;
+            background: #fff;
+            color: #444;
+            border: 1px solid #e5ddd5;
+        }
+        textarea {
+            width: 100%;
+            resize: none;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        textarea:focus {
+            outline: 2px solid #34b7f1;
+        }
+        .key-display {
+            padding: 0.5rem;
+            background: #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: #34b7f1;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #128c7e;
+        }
+        .message-container {
+            flex: 1;
+            /* display: flex; */
+            flex-direction: column;
+            gap: 0.5rem;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-y: auto;
+            max-height: 300px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #128c7e;">Simulador de Xifrat RSA</h1>
+    <div class="container">
+        <!-- Columna 1 -->
+        <div class="column">
+            <div id="clauPublica" class="key-display">Clau pública: ---</div>
+            <textarea id="missatge" placeholder="Escriu el teu missatge..."></textarea>
+            <button onclick="enviar()">Enviar</button>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="column">
+            <div class="message-container" id="xifratContainer">
+                <!-- <div class="bubble sender">Missatge Xifrat: ---</div> -->
+            </div>
+        </div>
+
+        <!-- Columna 3 -->
+        <div class="column">
+            <button onclick="generarClaus()">Generar Claus</button>
+            <div id="clauPrivada" class="key-display">Clau privada: ---</div>
+            <div class="message-container" id="desxifratContainer">
+                <!-- <div class="bubble">Missatge Desxifrat: ---</div> -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generarClaus() {
+            const clauPublica = "(e, n)";
+            const clauPrivada = "(d, n)";
+            //alert("Claus generades amb èxit!");
+            document.getElementById("clauPublica").innerText = `Clau pública: ${clauPublica}`;
+            document.getElementById("clauPrivada").innerText = `Clau privada: ${clauPrivada}`;
+        }
+
+        function enviar() {
+            const missatge = document.getElementById("missatge").value;
+
+            if (!missatge.trim()) {
+                alert("El missatge no pot estar buit!");
+                return;
+            }
+
+            const missatgeXifrat = `${missatge}`; // Simulem el xifrat
+            const xifratBubble = document.createElement('div');
+            xifratBubble.className = 'bubble sender';
+            xifratBubble.innerText = `${missatgeXifrat}`;
+            document.getElementById("xifratContainer").appendChild(xifratBubble);
+
+            const missatgeDesxifrat = `${missatge}`; // Simulem el desxifrat
+            const desxifratBubble = document.createElement('div');
+            desxifratBubble.className = 'bubble';
+            desxifratBubble.innerText = `${missatgeDesxifrat}`;
+            document.getElementById("desxifratContainer").appendChild(desxifratBubble);
+
+            // Netejar el textarea
+            document.getElementById("missatge").value = "";
+        }
+    </script>
+</body>
+</html>
