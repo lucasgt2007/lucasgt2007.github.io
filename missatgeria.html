@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador d'aplicació de missatgeria amb xifrat d'extrem a extrem</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script src="script.js"></script>
+    <title>Simulador de conversa amb xifrat RSA</title>
     <style>
         body {
             display: flex;
@@ -19,30 +17,46 @@
         }
         .container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 2rem;
             width: 100%;
             max-width: 900px;
             background: #ffffff;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+        }
+        .person-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
         }
         .column {
             flex: 1;
-            max-width: 32%;
             min-width: 300px;
             padding: 1rem;
-            border-right: 1px solid #ccc;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            background: #f9f9f9;
         }
-        .column:last-child {
-            border-right: none;
+        .message-container {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-y: auto;
+            max-height: 300px;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
         .bubble {
-            background: #dcf8c6;
+            max-width: 70%;
             padding: 0.8rem;
             border-radius: 10px;
             margin-bottom: 0.5rem;
@@ -51,27 +65,25 @@
         }
         .bubble.sender {
             align-self: flex-end;
-            background: #fff;
-            color: #444;
-            border: 1px solid #e5ddd5;
+            background: #d1f4d3; /* Verde claro */
+            color: #333;
         }
-        textarea {
+        .bubble.receiver {
+            align-self: flex-start;
+            background: #ffe5e5; /* Rojo claro */
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        textarea, input {
             width: 100%;
             resize: none;
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 10px;
-            background: #f9f9f9;
+            background: #fff;
         }
-        textarea:focus {
+        textarea:focus, input:focus {
             outline: 2px solid #34b7f1;
-        }
-        .key-display {
-            padding: 0.5rem;
-            background: #e5e5e5;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
         }
         button {
             padding: 0.5rem 1rem;
@@ -85,78 +97,129 @@
         button:hover {
             background: #128c7e;
         }
-        .message-container {
-            flex: 1;
-            /* display: flex; */
-            flex-direction: column;
-            gap: 0.5rem;
-            background: #fff;
+        .key-display {
+            padding: 0.5rem;
+            background: #e5e5e5;
             border-radius: 8px;
-            padding: 1rem;
-            overflow-y: auto;
-            max-height: 300px;
-            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1 style="color: #128c7e;">Simulador de Xifrat RSA</h1>
+    <h1 style="color: #128c7e;">Simulador de conversa amb xifrat RSA</h1>
     <div class="container">
-        <!-- Columna 1 -->
-        <div class="column">
-            <div id="clauPublica" class="key-display">Clau pública: ---</div>
-            <textarea id="missatge" placeholder="Escriu el teu missatge..."></textarea>
-            <button onclick="enviar()">Enviar</button>
-        </div>
-
-        <!-- Columna 2 -->
-        <div class="column">
-            <div class="message-container" id="xifratContainer">
-                <!-- <div class="bubble sender">Missatge Xifrat: ---</div> -->
+        <div class="message-container" id="chatContainer"></div>
+        <div class="person-container">
+            <!-- Persona 1 -->
+            <div class="column">
+                <input type="text" id="nomP1" placeholder="Nom Persona 1" value="Persona 1" />
+                <textarea id="msgP1" placeholder="Escriu el teu missatge..."></textarea>
+                <button onclick="enviar(1)">Enviar</button>
+                <input type="number" id="eP1" placeholder="Clau pública e" />
+                <input type="number" id="nP1" placeholder="Mòdul n" />
+                <input type="number" id="dP1" placeholder="Clau privada d" />
+                <button onclick="establirClaus(1)">Establir Claus</button>
+                <div class="key-display">Clau pública: <span id="clauPubP1">---</span></div>
+                <div class="key-display">Clau privada: <span id="clauPrivP1">---</span></div>
             </div>
-        </div>
-
-        <!-- Columna 3 -->
-        <div class="column">
-            <button onclick="generarClaus()">Generar Claus</button>
-            <div id="clauPrivada" class="key-display">Clau privada: ---</div>
-            <div class="message-container" id="desxifratContainer">
-                <!-- <div class="bubble">Missatge Desxifrat: ---</div> -->
+            <!-- Persona 2 -->
+            <div class="column">
+                <input type="text" id="nomP2" placeholder="Nom Persona 2" value="Persona 2" />
+                <textarea id="msgP2" placeholder="Escriu el teu missatge..."></textarea>
+                <button onclick="enviar(2)">Enviar</button>
+                <input type="number" id="eP2" placeholder="Clau pública e" />
+                <input type="number" id="nP2" placeholder="Mòdul n" />
+                <input type="number" id="dP2" placeholder="Clau privada d" />
+                <button onclick="establirClaus(2)">Establir Claus</button>
+                <div class="key-display">Clau pública: <span id="clauPubP2">---</span></div>
+                <div class="key-display">Clau privada: <span id="clauPrivP2">---</span></div>
             </div>
         </div>
     </div>
 
     <script>
-        function generarClaus() {
-            const clauPublica = "(e, n)";
-            const clauPrivada = "(d, n)";
-            //alert("Claus generades amb èxit!");
-            document.getElementById("clauPublica").innerText = `Clau pública: ${clauPublica}`;
-            document.getElementById("clauPrivada").innerText = `Clau privada: ${clauPrivada}`;
+        const claus = { P1: {}, P2: {} };
+
+        function establirClaus(persona) {
+            const e = parseInt(document.getElementById(`eP${persona}`).value);
+            const n = parseInt(document.getElementById(`nP${persona}`).value);
+            const d = parseInt(document.getElementById(`dP${persona}`).value);
+
+            if (!e || !n || !d) {
+                alert("Si us plau, introdueix valors vàlids per a les claus.");
+                return;
+            }
+
+            claus[`P${persona}`] = { e, n, d };
+
+            document.getElementById(`clauPubP${persona}`).innerText = `(${e}, ${n})`;
+            document.getElementById(`clauPrivP${persona}`).innerText = `(${d}, ${n})`;
+
+            alert(`Claus establertes per a ${document.getElementById(`nomP${persona}`).value}!`);
         }
 
-        function enviar() {
-            const missatge = document.getElementById("missatge").value;
+        function enviar(persona) {
+            const msgId = `msgP${persona}`;
+            const msg = document.getElementById(msgId).value.trim();
 
-            if (!missatge.trim()) {
+            if (!msg) {
                 alert("El missatge no pot estar buit!");
                 return;
             }
 
-            const missatgeXifrat = `${missatge}`; // Simulem el xifrat
-            const xifratBubble = document.createElement('div');
-            xifratBubble.className = 'bubble sender';
-            xifratBubble.innerText = `${missatgeXifrat}`;
-            document.getElementById("xifratContainer").appendChild(xifratBubble);
+            const sender = `P${persona}`;
+            const receiver = sender === "P1" ? "P2" : "P1";
 
-            const missatgeDesxifrat = `${missatge}`; // Simulem el desxifrat
-            const desxifratBubble = document.createElement('div');
-            desxifratBubble.className = 'bubble';
-            desxifratBubble.innerText = `${missatgeDesxifrat}`;
-            document.getElementById("desxifratContainer").appendChild(desxifratBubble);
+            if (!claus[sender].e || !claus[receiver].d) {
+                alert("Si us plau, assegura't que totes les claus estan establertes.");
+                return;
+            }
 
-            // Netejar el textarea
-            document.getElementById("missatge").value = "";
+            const mensajeCifrado = xifrar(msg, claus[receiver].e, claus[receiver].n);
+            const mensajeDescifrado = desxifrar(mensajeCifrado, claus[receiver].d, claus[receiver].n);
+
+            afegirMissatge(` (${document.getElementById(`nom${sender}`).value}): ${msg}`, "sender", sender);
+            afegirMissatge(`Missatge xifrat: ${mensajeCifrado}`, "receiver", receiver);
+            afegirMissatge(`Missatge desxifrat (${document.getElementById(`nom${receiver}`).value}): ${mensajeDescifrado}`, "receiver", receiver);
+
+            document.getElementById(msgId).value = "";
+        }
+
+        function afegirMissatge(missatge, type, sender) {
+            const bubble = document.createElement('div');
+            bubble.className = `bubble ${type}`;
+            bubble.innerText = missatge;
+            document.getElementById("chatContainer").appendChild(bubble);
+        }
+
+        function xifrar(text, e, n) {
+            return Array.from(text)
+                .map(char => char.charCodeAt(0))
+                .map(m => modularExp(m, e, n))
+                .join(" ");
+        }
+
+        function desxifrar(text, d, n) {
+            return text
+                .split(" ")
+                .map(c => modularExp(parseInt(c), d, n))
+                .map(m => String.fromCharCode(m))
+                .join("");
+        }
+
+        function modularExp(base, exp, mod) {
+            let result = 1;
+            base = base % mod;
+
+            while (exp > 0) {
+                if (exp % 2 === 1) {
+                    result = (result * base) % mod;
+                }
+                exp = Math.floor(exp / 2);
+                base = (base * base) % mod;
+            }
+            return result;
         }
     </script>
 </body>
