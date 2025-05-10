@@ -220,3 +220,7 @@ function MDesencriptat() {
 
   document.getElementById('textdesencriptat').value = decryptedText; // Display decrypted text
 }
+
+function Openfile2() {
+  window.location= 'http://lucasgt2007.github.io/missatgeria.html';
+}
